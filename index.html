@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Thangoo | Premium Pink Sweetheart Edition</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&family=Dancing+Script:wght@700&family=Parisienne&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #ffe5ec 0%, #ffb3c6 50%, #ff85a1 100%);
+            --pink-primary: #ff4d6d;
+            --pink-dark: #c9184a;
+            --pink-light: #fff0f3;
+            --gold-primary: linear-gradient(45deg, #ffe259, #ffa751);
+            --gold-text: #d4af37;
+            --glass-card: rgba(255, 255, 255, 0.78);
+            --glass-border: rgba(255, 77, 109, 0.3);
+            --neon-glow: 0 20px 50px 0 rgba(255, 77, 109, 0.3);
+            --gold-glow: 0 0 25px rgba(212, 175, 55, 0.2);
+            --inner-shadow: inset 0 0 30px rgba(255, 255, 255, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            background: var(--bg-gradient); 
+            color: #4a0010; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+            position: relative;
+        }
+
+        .premium-hearts-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .luxury-heart {
+            position: absolute; bottom: -80px;
+            opacity: 0; filter: drop-shadow(0 0 8px rgba(255,77,109,0.4));
+            animation: luxuryFloat 6s linear infinite;
+            will-change: transform, opacity;
+        }
+        @keyframes luxuryFloat {
+            0% { transform: translateY(0) scale(0.4) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.7; }
+            85% { opacity: 0.7; }
+            100% { transform: translateY(-110vh) scale(1.1) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- TOP CORNER DYNAMIC GIFS & MUSIC BUTTON --- */
+        .corner-gif {
+            position: fixed;
+            top: 20px;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            z-index: 999;
+            pointer-events: none;
+            filter: drop-shadow(0 4px 10px rgba(255, 77, 109, 0.2));
+        }
+        .gif-left { left: 20px; }
+        .gif-right { right: 20px; }
+        
+        .floating-music-btn {
+            position: fixed;
+            top: 25px;
+            right: 135px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #ff758f, #ff4d6d);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.45);
+            z-index: 1000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+        .floating-music-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 0 8px 25px rgba(201, 24, 74, 0.6);
+        }
+        .floating-music-btn i { font-size: 1.1rem; }
+        .floating-music-btn.playing i {
+            animation: musicPulse 1.2s infinite ease-in-out;
+        }
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); text-shadow: 0 0 10px #fff; }
+        }
+        .music-note-icon {
+            position: absolute;
+            font-size: 0.8rem;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .floating-music-btn.playing .music-note-icon {
+            animation: floatNote 1.5s infinite linear;
+        }
+        @keyframes floatNote {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-35px) scale(1.3) translateX(12px); opacity: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .corner-gif { width: 60px; height: 60px; top: 10px; }
+            .gif-left { left: 10px; }
+            .gif-right { right: 10px; }
+            .floating-music-btn { top: 15px; right: 80px; width: 40px; height: 40px; }
+        }
+
+        .screen {
+            min-height: 100vh;
+            width: 100vw;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 10;
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0;
+            transform: scale(0.98) translateY(5px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            overflow-y: auto;
+        }
+        .screen.active { display: flex; opacity: 1; transform: scale(1) translateY(0); }
+
+        .premium-glass-card {
+            background: var(--glass-card);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: var(--neon-glow), var(--inner-shadow), var(--gold-glow);
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        @media (max-width: 400px) {
+            .premium-glass-card { padding: 30px 20px; border-radius: 20px; }
+        }
+        .premium-glass-card:hover {
+            border-color: rgba(255, 77, 109, 0.5);
+            box-shadow: 0 25px 60px rgba(255, 77, 109, 0.45), var(--inner-shadow);
+            transform: translateY(-3px);
+        }
+
+        .pink-grad-text {
+            background: linear-gradient(135deg, #70001a 0%, #c9184a 45%, #ff4d6d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Parisienne', cursive;
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(255,77,109,0.1);
+        }
+        
+        .love-font-sub {
+            font-family: 'Great Vibes', cursive;
+            color: #c9184a;
+        }
+
+        .btn-premium-love {
+            background: linear-gradient(45deg, #ff758f, #ff4d6d, #c9184a);
+            background-size: 200% auto;
+            color: #fff; border: 1px solid rgba(255, 255, 255, 0.4); padding: 14px 35px;
+            font-size: 0.9rem; font-weight: 600; border-radius: 50px;
+            cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 6px 25px rgba(255, 77, 109, 0.4);
+            display: inline-flex; align-items: center; gap: 10px;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            margin-top: 20px;
+            z-index: 20;
+        }
+        .btn-premium-love:hover {
+            background-position: right center; transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(201, 24, 74, 0.55);
+        }
+        .btn-premium-love:active { transform: translateY(-1px); }
+
+        .btn-premium-back {
+            background: rgba(255, 255, 255, 0.5); color: #c9184a;
+            border: 1px solid rgba(255, 77, 109, 0.3); margin-top: 20px; box-shadow: none;
+        }
+        .btn-premium-back:hover { background: #fff; color: #ff4d6d; border-color: #ff4d6d; }
+
+        /* --- LUXURY LOGIN SCREEN --- */
+        .premium-login-title { font-size: 2.4rem; margin-bottom: 25px; }
+        @media (max-width: 480px) { .premium-login-title { font-size: 2rem; } }
+        .input-premium-group { position: relative; margin-bottom: 20px; width: 100%; }
+        .input-premium-group i.fa-heart, .input-premium-group i.fa-lock { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #ff4d6d; font-size: 1.1rem; }
+        .input-premium-group input {
+            width: 100%; padding: 15px 50px; border-radius: 50px;
+            border: 1.5px solid rgba(255, 77, 109, 0.25); background: rgba(255, 255, 255, 0.7);
+            font-size: 1rem; color: #4a0010; outline: none; transition: all 0.3s;
+        }
+        .input-premium-group input:focus { border-color: #ff4d6d; background: #fff; box-shadow: 0 0 15px rgba(255, 77, 109, 0.25); }
+        .toggle-premium-password { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #ff758f; z-index: 15; padding: 5px; }
+        .premium-error-msg { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: #c9184a; font-weight: 600; margin-top: 8px; display: none; }
+
+        /* --- WISH SCREEN --- */
+        .premium-wish-box { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
+        .premium-wish-box h1 { font-size: 3rem; margin-bottom: 5px; opacity: 0; transform: scale(0.9) translateY(20px); text-align: center; line-height: 1.2; }
+        .premium-wish-box h2 { font-size: 4.5rem; font-family: 'Great Vibes', cursive; text-shadow: 0 8px 30px rgba(255, 77, 109, 0.4); margin-bottom: 10px; opacity: 0; transform: scale(0.9) translateY(20px); }
+        .premium-wish-box p { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #c9184a; font-weight: 700; margin-bottom: 20px; opacity: 0; transform: scale(0.9) translateY(20px); line-height: 1.5; padding: 0 15px; }
+        @media (max-width: 480px) {
+            .premium-wish-box h1 { font-size: 2.2rem; }
+            .premium-wish-box h2 { font-size: 3.5rem; }
+            .premium-wish-box p { font-size: 1.2rem; }
+        }
+        .screen.active .premium-fade-text { animation: premiumFadeUpDynamic 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .screen.active h2.premium-fade-text { animation-delay: 0.2s; }
+        .screen.active p.premium-fade-text { animation-delay: 0.4s; }
+        @keyframes premiumFadeUpDynamic { to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        .blast-particles-overlay { position: fixed; width: 100%; height: 100%; top:0; left:0; pointer-events: none; display: none; z-index: 9999; }
+
+        /* --- BALLOONS SCREEN --- */
+        .balloons-section-wrapper { max-width: 850px; width: 100%; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 80vh; }
+        .balloons-premium-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin: 20px auto; justify-items: center; width: 100%; }
+        @media (max-width: 600px) { .balloons-premium-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } }
+        
+        .luxury-balloon {
+            width: 75px; height: 100px; border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            position: relative; cursor: pointer; transition: transform 0.3s ease;
+            box-shadow: inset -8px -12px 20px rgba(0,0,0,0.15), 0 10px 20px rgba(255, 77, 109, 0.2), inset 6px 6px 10px rgba(255,255,255,0.6);
+            animation: premiumFloatSwing 4s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+        @media (max-width: 400px) { .luxury-balloon { width: 65px; height: 88px; } }
+        .luxury-balloon::after { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 8px solid inherit; }
+        .luxury-balloon-string { width: 2px; height: 40px; background: rgba(255, 77, 109, 0.3); position: absolute; bottom: -45px; left: 50%; transform: translateX(-50%); }
+        @keyframes premiumFloatSwing { 0% { transform: translateY(0) rotate(-4deg); } 100% { transform: translateY(-12px) rotate(4deg); } }
+        .luxury-balloon.popped-out { animation: luxuryPop 0.2s ease-out forwards; }
+        @keyframes luxuryPop { 0% { transform: scale(1); } 40% { transform: scale(1.2); opacity: 0.8; } 100% { transform: scale(0); opacity: 0; } }
+
+        /* --- FIXED & ALIGNED BALLOON POLAROID MODAL --- */
+        .luxury-polaroid-modal {
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0);
+            background: #fff; 
+            padding: 12px 12px 25px 12px; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.25), 0 0 30px rgba(255,77,109,0.3);
+            z-index: 10000; 
+            transition: transform 0.4s cubic-bezier(0.34, 1.3, 0.64, 1);
+            border-radius: 12px; 
+            width: 300px; 
+            max-width: 85vw;
+            height: auto;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: flex-start;
+            text-align: center; 
+            border: 1px solid var(--glass-border);
+        }
+        .luxury-polaroid-modal.show-up { transform: translate(-50%, -50%) scale(1) rotate(-1deg); }
+        
+        .luxury-polaroid-modal .image-container {
+            width: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            overflow: hidden; 
+            border-radius: 6px;
+            background: #fafafa;
+        }
+        .luxury-polaroid-modal img { 
+            width: 100%; 
+            height: auto; 
+            max-height: 320px; 
+            object-fit: contain; 
+            display: block; 
+        }
+        .luxury-polaroid-modal p { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #c9184a; margin-top: 15px; font-weight: 700; width: 100%; text-align: center; }
+        .luxury-polaroid-close { position: absolute; top: -15px; right: -15px; background: #ff4d6d; color: white; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid #fff; z-index: 10001; font-weight: bold; }
+
+        /* --- REALISTIC SURPRISE BOXES --- */
+        .surprise-boxes-container { display: flex; gap: 30px; justify-content: center; align-items: center; width: 100%; flex-wrap: wrap; margin-top: 25px; }
+        .realistic-gift-container { perspective: 1000px; width: 130px; height: 150px; cursor: pointer; opacity: 0; transform: translateY(-40px); }
+        .screen.active .realistic-gift-container:nth-child(1) { animation: giftFadeDownSmooth 0.5s 0.1s ease-out forwards; }
+        .screen.active .realistic-gift-container:nth-child(2) { animation: giftFadeDownSmooth 0.5s 0.3s ease-out forwards; }
+        .screen.active .realistic-gift-container:nth-child(3) { animation: giftFadeDownSmooth 0.5s 0.5s ease-out forwards; }
+        @keyframes giftFadeDownSmooth { to { opacity: 1; transform: translateY(0); } }
+
+        .realistic-gift-box { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.3s ease; }
+        .realistic-gift-container:hover .realistic-gift-box { transform: rotateY(12deg) scale(1.04); }
+        .gift-box-body { position: absolute; bottom: 0; width: 100px; height: 100px; background: linear-gradient(135deg, #ff758f, #ff4d6d); left: 15px; border-radius: 0 0 12px 12px; border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 12px 25px rgba(255, 77, 109, 0.25); }
+        .gift-box-body::before, .gift-box-lid::before { content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 18px; height: 100%; background: linear-gradient(90deg, #fff, #ffe5ec); }
+        .gift-box-lid { position: absolute; top: 40px; left: 7px; width: 116px; height: 22px; background: linear-gradient(135deg, #ff85a1, #ff758f); border-radius: 6px 6px 4px 4px; z-index: 2; transition: transform 0.3s ease; }
+        .gift-bow { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 32px; height: 20px; background: #fff; border-radius: 50% 50% 0 0; z-index: 3; transition: transform 0.3s ease; }
+        .gift-bow::after { content: ''; position: absolute; left: -10px; top: 4px; width: 52px; height: 12px; background: #ffe5ec; border-radius: 50%; }
+        .realistic-gift-container:hover .gift-box-lid { transform: translateY(-10px) rotate(-5deg); }
+        .realistic-gift-container:hover .gift-bow { transform: translateX(-50%) translateY(-12px) rotate(-5deg); }
+        .gift-label { font-family: 'Dancing Script', cursive; font-size: 1.1rem; position: absolute; bottom: -20px; width: 100%; text-align: center; font-weight: 600; color: #c9184a; }
+
+        /* --- VIDEO WRAPPER --- */
+        .premium-video-wrapper { width: 100%; max-width: 500px; position: relative; border-radius: 20px; overflow: hidden; box-shadow: var(--neon-glow); border: 2px solid rgba(255,255,255,0.6); background: #000; display: flex; align-items: center; justify-content: center; aspect-ratio: 16/9; }
+        .premium-video-cover { position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(135deg, #ffb3c6, #ff4d6d); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; z-index: 20; cursor: pointer; padding: 15px; text-align: center; }
+        .premium-video-cover.hidden-wrap { opacity: 0; transform: translateY(100%) scale(0.8); pointer-events: none; transition: all 0.5s ease; }
+        .premium-video-cover i { font-size: 4rem; }
+        video { width: 100%; height: 100%; object-fit: contain; }
+
+        /* --- QUIZ & FILL-IN-THE-BLANKS PAGE --- */
+        .quiz-blur-wrapper { transition: filter 0.3s ease; }
+        .quiz-blur-wrapper.blurred { filter: blur(10px); pointer-events: none; }
+        .quiz-luxury-progress { height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+        .quiz-luxury-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff758f, #ff4d6d); transition: width 0.3s ease; }
+        .quiz-luxury-question { font-size: 1.05rem; font-weight: 600; margin-bottom: 20px; line-height: 1.5; color: #4a0010; text-align: left; }
+        
+        .fill-blank-input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 1.5px solid rgba(255, 77, 109, 0.3);
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            color: #4a0010;
+            outline: none;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .fill-blank-input:focus {
+            border-color: #ff4d6d;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(255, 77, 109, 0.25);
+        }
+
+        .quiz-alert-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; border-radius: 30px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(5px); }
+        .quiz-alert-card { background: #fff; padding: 25px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.1); text-align: center; width: 85%; display: flex; flex-direction: column; align-items: center; gap: 10px; border: 1px solid rgba(255,77,109,0.2); }
+        .quiz-gif-anim { width: 100px; height: 100px; object-fit: contain; }
+        .quiz-alert-card h3 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #c9184a; }
+
+        /* --- LETTER SCREEN --- */
+        .premium-letter-box { width: 100%; max-width: 500px; height: 420px; background-size: cover; background-position: center; border-radius: 24px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 3px solid rgba(255,255,255,0.6); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+        .premium-letter-shade { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(255, 240, 243, 0.94); z-index: 1; }
+        .premium-letter-core { position: relative; z-index: 5; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+        .premium-letter-typed { font-family: 'Dancing Script', cursive; font-size: 1.25rem; line-height: 1.6; color: #4a0010; white-space: pre-wrap; font-weight: 700; height: 100%; overflow-y: auto; padding-right: 5px; text-align: left; }
+        .btn-premium-skip { position: absolute; top: 12px; right: 12px; z-index: 10; padding: 5px 14px; background: #ff4d6d; color: #fff; border: 1px solid #fff; border-radius: 20px; cursor: pointer; font-size: 0.8rem; }
+
+        /* --- FLOATING PHOTO GRID LAYOUT --- */
+        #scr-photos {
+            display: none;
+            position: relative;
+            width: 100vw;
+            min-height: 100vh;
+            overflow: hidden;
+            background: var(--bg-gradient);
+            padding: 0;
+        }
+        #scr-photos.active { display: block; }
+
+        .floating-photos-container-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 5;
+        }
+
+        .floating-polaroid-card {
+            position: absolute;
+            width: 115px;
+            height: 145px;
+            background: #fff;
+            padding: 6px 6px 20px 6px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 77, 109, 0.2);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 10;
+            transform-style: preserve-3d;
+            transition: width 0.4s ease, height 0.4s ease, box-shadow 0.4s ease, border-radius 0.4s ease;
+            will-change: transform, left, top;
+        }
+        
+        @media(max-width: 600px) {
+            .floating-polaroid-card {
+                width: 90px;
+                height: 115px;
+                padding: 4px 4px 15px 4px;
+            }
+        }
+
+        .floating-polaroid-card .float-img-holder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+
+        .floating-polaroid-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .floating-polaroid-card p {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.8rem;
+            color: #c9184a;
+            margin-top: 4px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            text-align: center;
+        }
+        @media(max-width: 600px) { .floating-polaroid-card p { font-size: 0.65rem; margin-top: 2px; } }
+
+        .floating-polaroid-card.focused-center-view {
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            width: 310px !important;
+            height: auto !important;
+            max-width: 85vw !important;
+            transform: translate(-50%, -50%) scale(1.05) !important;
+            z-index: 99999 !important;
+            box-shadow: 0 35px 80px rgba(0,0,0,0.35), 0 0 30px rgba(255, 77, 109, 0.4);
+            padding: 12px 12px 40px 12px;
+            border-radius: 14px;
+            background: #fff;
+        }
+        
+        .floating-polaroid-card.focused-center-view .float-img-holder {
+            height: auto;
+            max-height: 360px;
+        }
+        
+        .floating-polaroid-card.focused-center-view img {
+            width: 100%;
+            height: auto;
+            max-height: 360px;
+            object-fit: contain;
+        }
+        
+        .floating-polaroid-card.focused-center-view p {
+            font-size: 1.5rem;
+            margin-top: 12px;
+        }
+
+        .floating-header-hud-layout {
+            position: absolute;
+            top: 20px; width: 100%;
+            text-align: center;
+            z-index: 50;
+            padding: 0 15px;
+            pointer-events: none;
+        }
+        .floating-footer-hud-layout {
+            position: absolute;
+            bottom: 25px; width: 100%;
+            text-align: center;
+            z-index: 50;
+            pointer-events: none;
+        }
+        .floating-header-hud-layout *, .floating-footer-hud-layout * { pointer-events: auto; }
+
+        /* --- FINAL BIRTHDAY SCREEN --- */
+        .final-luxury-container { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; max-width: 650px; }
+        .final-mega-title { font-size: 3rem; opacity: 0; }
+        .final-sub-title { font-family: 'Great Vibes', cursive; font-size: 4.2rem; color: #ff4d6d; text-shadow: 0 6px 20px rgba(255,77,109,0.25); margin-bottom: 20px; opacity: 0; }
+        @media (max-width: 480px) {
+            .final-mega-title { font-size: 2.4rem; }
+            .final-sub-title { font-size: 3.4rem; }
+        }
+        .screen.active .final-mega-title { animation: finalDownFade 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .screen.active .final-sub-title { animation: finalDownFade 1s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards; }
+        @keyframes finalDownFade { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .final-wish-lines { font-family: 'Dancing Script', cursive; font-size: 1.3rem; line-height: 1.6; color: #5c0017; font-weight: 700; text-align: center; margin-bottom: 20px; opacity: 0; padding: 0 10px; white-space: pre-wrap; }
+        @media (max-width: 480px) { .final-wish-lines { font-size: 1.15rem; line-height: 1.5; } }
+        .screen.active .final-wish-lines { animation: finalTextFade 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards; }
+        .screen.active .final-loop-btn { animation: finalTextFade 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards; }
+        @keyframes finalTextFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .final-loop-btn { opacity: 0; }
+
+        @keyframes shakeErr { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+    </style>
+</head>
+<body>
+
+    <div class="premium-hearts-bg" id="premiumHeartsContainer"></div>
+    <div class="blast-particles-overlay" id="blastOverlay"></div>
+
+    <audio id="bgmAudio" src="assets/bgm-1.mp3" loop preload="auto"></audio>
+
+    <img src="assets/bubu-dudu-sseeyall.gif" alt="Top Left GIF" class="corner-gif gif-left">
+    <img src="assets/bubu.gif" alt="Top Right GIF" class="corner-gif gif-right">
+    
+    <!-- Floating Music Button -->
+    <div class="floating-music-btn" id="musicToggleButton" onclick="toggleMusicPlayback()" title="Play/Pause Music">
+        <i class="fas fa-music"></i>
+        <div class="music-note-icon">🎵</div>
+    </div>
+
+    <div class="screen active" id="scr-login">
+        <div class="premium-glass-card">
+            <h2 class="premium-login-title pink-grad-text">Welcome Love 💕</h2>
+            <div class="input-premium-group">
+                <i class="fas fa-heart"></i>
+                <input type="text" id="username" placeholder="Username" autocomplete="off">
+            </div>
+            <div class="input-premium-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="Password">
+                <i class="fas fa-eye toggle-premium-password" id="eyeToggle" onclick="handlePasswordToggle()"></i>
+            </div>
+            <p class="premium-error-msg" id="loginErrorMessage">Incorrect Username or Password! 🤫</p>
+            <button class="btn-premium-love" onclick="processLoginCheck()">
+                Login <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="screen" id="scr-wish">
+        <div class="premium-wish-box">
+            <h1 class="premium-fade-text pink-grad-text">Happiest Born Day</h1>
+            <h2 class="premium-fade-text love-font-sub">di Chella kuttyyy...🤗🤌🏻🌹</h2>
+            <p class="premium-fade-text">Endha 18 years la endha birthday celebration unaku romba pudikum... maraka ve mudiyatha birthday..</p>
+            <div>
+                <button class="btn-premium-love" onclick="navigateTo('scr-balloons')">
+                    Memories <i class="fas fa-sparkles"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="scr-balloons">
+        <div class="balloons-section-wrapper">
+            <h2 class="pink-grad-text" style="font-size: 2rem; margin-bottom: 10px;">Pop 6 Balloons to Unlock Memories! 🎈</h2>
+            <div class="balloons-premium-grid" id="balloonGridContainer"></div>
+            <div>
+                <button class="btn-premium-love" id="btnNextSurpriseWrapper" style="display: none;" onclick="navigateTo('scr-surprises')">
+                    Open Surprise Boxes <i class="fas fa-box-heart"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="luxury-polaroid-modal" id="luxuryPolaroid">
+        <span class="luxury-polaroid-close" onclick="dismissPolaroid()">&times;</span>
+        <div class="image-container">
+            <img id="polaroidImageSrc" src="" alt="Memory">
+        </div>
+        <p id="polaroidCaptionSrc"></p>
+    </div>
+
+    <div class="screen" id="scr-surprises">
+        <h2 class="pink-grad-text" style="margin-bottom: 15px; font-size: 2.2rem;">Surprise Boxes Just For You 🎁</h2>
+        
+        <div class="surprise-boxes-container" id="allSurprisesBoxesGroup">
+            <div class="realistic-gift-container" onclick="triggerSurpriseOpen(1)">
+                <div class="realistic-gift-box"><div class="gift-bow"></div><div class="gift-box-lid"></div><div class="gift-box-body"></div><div class="gift-label">Surprise 1</div></div>
+            </div>
+            <div class="realistic-gift-container" onclick="triggerSurpriseOpen(2)">
+                <div class="realistic-gift-box"><div class="gift-bow"></div><div class="gift-box-lid"></div><div class="gift-box-body"></div><div class="gift-label">Quiz Page</div></div>
+            </div>
+            <div class="realistic-gift-container" onclick="triggerSurpriseOpen(3)">
+                <div class="realistic-gift-box"><div class="gift-bow"></div><div class="gift-box-lid"></div><div class="gift-box-body"></div><div class="gift-label">Letter Page</div></div>
+            </div>
+        </div>
+
+        <div id="content-surprise-1" style="display: none; flex-direction: column; align-items: center; width: 100%;">
+            <div class="premium-video-wrapper">
+                <div class="premium-video-cover" id="videoWrapperCover" onclick="revealHiddenVideo()">
+                    <i class="fas fa-gift"></i>
+                    <p style="margin-top: 10px; font-weight: 600; letter-spacing: 1px; font-size: 0.9rem;">TAP TO UNWRAP YOUR VIDEO!</p>
+                </div>
+                <video id="premiumMainVideo" controls src="assets/v-1.mp4"></video>
+            </div>
+            <button class="btn-premium-love btn-premium-back" onclick="finalizeSurpriseClose(1)"><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
+
+        <div id="content-surprise-2" class="premium-glass-card" style="display: none; max-width: 480px;">
+            <div class="quiz-blur-wrapper" id="quizInterfaceWrapper">
+                <div class="quiz-luxury-progress"><div class="quiz-luxury-bar" id="quizProgressBarTracker"></div></div>
+                <div class="quiz-luxury-question" id="quizQuestionText">Loading Question...</div>
+                <input type="text" id="fillBlankAnswerInput" class="fill-blank-input" placeholder="Type your sweet answer here..." autocomplete="off">
+                <button class="btn-premium-love" style="margin-top: 5px; width: 100%; justify-content: center;" onclick="submitFillBlankAnswer()">Submit Answer <i class="fas fa-heart"></i></button>
+            </div>
+            <div class="quiz-alert-overlay" id="quizCorrectOverlay">
+                <div class="quiz-alert-card correct-style">
+                    <img src="assets/happy-dudu.gif" class="quiz-gif-anim">
+                    <h3 id="correctOverlayText">Perfect! ✨</h3>
+                </div>
+            </div>
+            
+            <!-- Quiz Summary Card with Screenshot Instruction & Points Button -->
+            <div id="quiz-summary-scoreboard" style="display: none; text-align: left; width: 100%; max-height: 420px; overflow-y: auto; padding-right: 5px;" class="score-card-luxury">
+                <h3 style="color: #c9184a; text-align: center; font-family: 'Dancing Script', cursive; font-size: 2.2rem; margin-bottom: 5px;">Quiz Completed! ✨</h3>
+                <p style="text-align: center; color: #ff4d6d; font-weight: 700; font-size: 1.05rem; margin-bottom: 18px; background: rgba(255,77,109,0.12); padding: 10px 14px; border-radius: 14px; border: 1.5px dashed rgba(255,77,109,0.5);">
+                    📸 Take a screenshot and send it to me! 📸✨
+                </p>
+                <div id="quizSummaryListContainer" style="display: flex; flex-direction: column; gap: 12px; width: 100%; margin-bottom: 20px;">
+                    <!-- Dynamically populated summary items -->
+                </div>
+                <button class="btn-premium-love" style="width: 100%; justify-content: center;" onclick="navigateToPointsPage()">
+                    Go to Points Page <i class="fas fa-star"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="content-surprise-3" style="display: none; flex-direction: column; align-items: center; width:100%;">
+            <div class="premium-letter-box" id="premiumLetterCard" style="background-image: url('assets/letter-1.jpg');">
+                <div class="premium-letter-shade"></div><button class="btn-premium-skip" id="skipTypingEngineBtn" onclick="bypassTypewriterEngine()">Skip</button>
+                <div class="premium-letter-core"><div class="premium-letter-typed" id="typewriterOutputCore"></div></div>
+            </div>
+            <button class="btn-premium-love btn-premium-back" id="backFromLetterBtn" style="opacity: 0; pointer-events: none;" onclick="finalizeSurpriseClose(3)"><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
+    </div>
+
+    <div class="screen" id="scr-points">
+        <div class="premium-glass-card" style="max-width: 520px;">
+            <h2 class="pink-grad-text" style="font-size: 2.3rem; margin-bottom: 10px;">Your Love Scorecard 🌟</h2>
+            <p style="font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #c9184a; font-weight: 700; margin-bottom: 20px;">
+                Here is your official milestone reward for being the best chella kutty! 💖
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 14px; text-align: left; margin-bottom: 25px;">
+                <div style="background: rgba(255,255,255,0.85); padding: 14px 18px; border-radius: 16px; border: 1px solid rgba(255,77,109,0.25); display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <h4 style="color: #c9184a; font-size: 0.95rem; font-weight: 600;"><i class="fas fa-heart" style="color: #ff4d6d; margin-right: 6px;"></i> Endless Love Points</h4>
+                        <p style="font-size: 0.8rem; color: #666;">For loving me through thick and thin</p>
+                    </div>
+                    <span style="font-family: 'Cinzel Decorative', cursive; font-weight: 700; color: #ff4d6d; font-size: 1.1rem;">9,999,999+</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.85); padding: 14px 18px; border-radius: 16px; border: 1px solid rgba(255,77,109,0.25); display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <h4 style="color: #c9184a; font-size: 0.95rem; font-weight: 600;"><i class="fas fa-trophy" style="color: #d4af37; margin-right: 6px;"></i> Best Chella Kutty Award</h4>
+                        <p style="font-size: 0.8rem; color: #666;">Awarded for maximum cuteness & smiles</p>
+                    </div>
+                    <span style="font-size: 1.3rem;">🏆</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.85); padding: 14px 18px; border-radius: 16px; border: 1px solid rgba(255,77,109,0.25); display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <h4 style="color: #c9184a; font-size: 0.95rem; font-weight: 600;"><i class="fas fa-ring" style="color: #ff4d6d; margin-right: 6px;"></i> Forever & Always Badge</h4>
+                        <p style="font-size: 0.8rem; color: #666;">Unlocked for a lifetime together</p>
+                    </div>
+                    <span style="font-size: 1.3rem;">💍♾️</span>
+                </div>
+            </div>
+            <button class="btn-premium-love" style="width: 100%; justify-content: center;" onclick="proceedFromPointsToPhotos()">
+                Continue to Memories <i class="fas fa-sparkles"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="screen" id="scr-photos">
+        <div class="floating-header-hud-layout">
+            <h2 class="pink-grad-text" style="font-size: 2rem;">Our Beautiful Journey ✨</h2>
+            <p style="color: #c9184a; font-weight: 500; font-size: 0.85rem;">Click any floating card to freeze & zoom it directly in center! 💖</p>
+        </div>
+        
+        <div class="floating-photos-container-canvas" id="floatingCanvasArea"></div>
+        
+        <div class="floating-footer-hud-layout">
+            <button class="btn-premium-love" onclick="navigateTo('scr-final')">
+                Final Words <i class="fas fa-heart"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="screen" id="scr-final">
+        <div class="final-luxury-container">
+            <h1 class="final-mega-title pink-grad-text">Heyy🌹</h1>
+            <h2 class="final-sub-title">Chella kuttyyy...🤗🤌🏻
+            </h2>
+            <div class="final-wish-lines">Unake theriyum you are my 1st love eathu enaku mattum illa unakum tha..🎀🫶🏻🌹
+Endha 3 and half years la chenna chenna thappu panni iruka aapo kuda ne ya kuda iruka eani yum irupa nu nambura...🙄☺️
+Na unna ooru seela vesiyathula kasta paduthi iruka sry di chlm..😔 
+Aana endha birthday ku sollura eani na aapadi ellam panna mata it's my promise di chlm...🙃
+Endha year la some problem vanthuchi God numba love ku test vecharu ooru seela months pesama iruthom aapo kuda same love iruka nu..? 
+Aana love aathigama tha aachi thavera kammi aagala...🥰💞
+Eani nama naraya birthday's and anniversarys celebration Panna porom oona...👫je☺️♾️
+And once again Happy Birthday di pattu kuttyyyyy...✨🫂💋</div>
+            <button class="btn-premium-love final-loop-btn" onclick="triggerLoveLoopReset()">Love Loop ♾️</button>
+        </div>
+    </div>
+
+    <script>
+        const dynamicMemoriesList = [
+            { img: 'assets/img-1.jpeg', cap: 'My Heartbeat ❤️' },
+            { img: 'assets/img-2.jpg', cap: 'Beautiful Smile 🌸' },
+            { img: 'assets/img-3.jpg', cap: 'Sweetest Moments ✨' },
+            { img: 'assets/img-4.jpg', cap: 'Pure Magic 💫' },
+            { img: 'assets/img-5.jpg', cap: 'Endless Love 💖' },
+            { img: 'assets/img-6.jpg', cap: 'Always Yours ♾️' }
+        ];
+
+        const floatingPhotosData = [
+            { img: 'assets/img-7.jpg', cap: 'Everything🥺' },
+            { img: 'assets/img-8.jpg', cap: 'My World ✨' },
+            { img: 'assets/img-9.jpg', cap: 'My Love 💕' },
+            { img: 'assets/img-10.jpg', cap: 'Memories 🌸' },
+            { img: 'assets/img-11.jpg', cap: 'Holding 🤝' },
+            { img: 'assets/img-12.jpg', cap: 'Mine 🌍' },
+            { img: 'assets/img-13.jpg', cap: 'Smile 😍' },
+            { img: 'assets/img-14.jpg', cap: 'Love you 💎' },
+            { img: 'assets/img-15.jpg', cap: 'Special Bond ♾️' },
+            { img: 'assets/img-16.jpg', cap: 'Forever 💍' }
+        ];
+
+        const fillBlankQuestionsPool = [
+            "1) Ya kuda irutha thu la endha memories unaku romba pudikum?",
+            "2) Ne enna expect panura ya kitta?",
+            "3) Which is your love language?",
+            "4) Numba Realishanship ha pathi ne enna nenikura..?",
+            "5) Numba Realishanship la endha vesiyam mattum panama irutha naala irukum na endha vesiyam tha solluva?"
+        ];
+
+        let userQuizAnswers = [];
+
+        const premiumLoveLetterString = `Happy Birthday di ya "Mons kutty" ✨🥳🌹😘
+God bless you di chlm..🙌🏻
+Happy ha iru dii..seri ya..😇
+God is always with you di chlm..🙂
+Na eapayum yu kuda tha irupa.👫
+Eathuva irunthalum sollu pathukalam...🙃
+Endha year ha unna la maraka ve mudiyathu yen na endha year la nama expect panatha naraya vesiyam nadathu pochi..
+Aprm endha year la vara birthday va kuda maraka mudiyathu yen na endha birthday la tha ne clg ku poga pora 1 st day..🥰
+Endha birthday ku ennala yu kuda iruka mudiyala sry..🙄
+Aprm endha birthday la iruthu tha numba Long Distance Relationship start aaguthu..
+Na thoorama iruka nu nenikatha na eapayum unakaga irupa...🫂
+You are the most beautiful chapter of my life, and every moment with you feels like a dream I never want to wake up from. ❤️✨ Your smile is my favorite thing in this world, and your presence makes even ordinary days feel special. 🦋
+On your special day, I just want you to know how deeply I love you. No matter where life takes us, I’ll always be grateful that I found you. 🫶🏻❤️
+May all your dreams come true, may your smile never fade, and may I always be there to celebrate every beautiful moment with you. 💕🌹
+Happy Birthday, my princess 👑❤️ You are my today, my tomorrow, and my forever.♾️
+I love you more than words can ever say. 😘❤️🎂
+Stay bless be happy forever..🥳
+Love you di ya pattu kuttyyyyy,
+Ya Chella kuttyyy, ya Ammu kutty, ya thanga kutty,
+Ya aalagi mons kuttyyyy..💫🤌🏻🫂
+Ummmmaaa....💋💋`;
+
+        let poppedBalloonsCounter = 0;
+        let activeFillBlankIndex = 0;
+        let letterTypewriterIntervalTimer;
+        let typewriterActiveStatus = false;
+        let isPlayingBgm = false;
+        
+        let floatingCardsEngineList = [];
+        let globalAnimationRequestFrameHolder;
+        let currentlyZoomedCardReference = null;
+
+        function generatePremiumHearts() {
+            const container = document.getElementById('premiumHeartsContainer');
+            const premiumLoveGems = ['💖', '✨', '🌸', '💕', '🎀', '🎈'];
+            
+            setInterval(() => {
+                if (document.hidden) return;
+                const luxuryGem = document.createElement('div');
+                luxuryGem.className = 'luxury-heart';
+                luxuryGem.innerText = premiumLoveGems[Math.floor(Math.random() * premiumLoveGems.length)];
+                luxuryGem.style.left = Math.random() * 95 + 'vw';
+                luxuryGem.style.fontSize = (Math.random() * 1.0 + 1.0) + 'rem';
+                luxuryGem.style.animationDuration = (Math.random() * 2 + 4) + 's';
+                container.appendChild(luxuryGem);
+                setTimeout(() => luxuryGem.remove(), 5000);
+            }, 450);
+        }
+        window.onload = function() {
+            generatePremiumHearts();
+            setupVideoAudioDuckingHandlers();
+        };
+
+        function setupVideoAudioDuckingHandlers() {
+            const bgm = document.getElementById('bgmAudio');
+            const mainVideo = document.getElementById('premiumMainVideo');
+            if(!mainVideo || !bgm) return;
+
+            // When video starts playing -> duck background music volume to very low (0.05)
+            mainVideo.onplay = () => {
+                if (!bgm.paused) {
+                    bgm.volume = 0.05;
+                }
+            };
+
+            // When video is paused -> restore background music volume (0.4)
+            mainVideo.onpause = () => {
+                if (!bgm.paused) {
+                    bgm.volume = 0.4;
+                }
+            };
+
+            // When video finishes playing -> restore background music volume
+            mainVideo.onended = () => {
+                if (!bgm.paused) {
+                    bgm.volume = 0.4;
+                }
+            };
+        }
+
+        function playBackgroundMusic() {
+            const bgm = document.getElementById('bgmAudio');
+            const musicBtn = document.getElementById('musicToggleButton');
+            const mainVideo = document.getElementById('premiumMainVideo');
+            if (bgm) {
+                // If surprise video is currently playing, set initial volume low
+                bgm.volume = (mainVideo && !mainVideo.paused && !mainVideo.ended) ? 0.05 : 0.4;
+                bgm.play().then(() => {
+                    isPlayingBgm = true;
+                    musicBtn.classList.add('playing');
+                }).catch(e => {
+                    console.log("Audio autoplay restricted by browser policy, will play on user interaction.");
+                });
+            }
+        }
+
+        function toggleMusicPlayback() {
+            const bgm = document.getElementById('bgmAudio');
+            const musicBtn = document.getElementById('musicToggleButton');
+            const mainVideo = document.getElementById('premiumMainVideo');
+            if (bgm.paused) {
+                bgm.volume = (mainVideo && !mainVideo.paused && !mainVideo.ended) ? 0.05 : 0.4;
+                bgm.play().then(() => {
+                    isPlayingBgm = true;
+                    musicBtn.classList.add('playing');
+                }).catch(e => console.log(e));
+            } else {
+                bgm.pause();
+                isPlayingBgm = false;
+                musicBtn.classList.remove('playing');
+            }
+        }
+
+        function navigateTo(screenTargetId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenTargetId).classList.add('active');
+
+            if(screenTargetId === 'scr-wish' || screenTargetId === 'scr-final') { triggerLuxuryScreenBlastOverlay(); }
+            if(screenTargetId === 'scr-balloons' && document.getElementById('balloonGridContainer').children.length === 0) { generateRealisticBalloonsGrid(); }
+            if(screenTargetId === 'scr-photos') { initFullPageFloatingGrid(); }
+            else { stopFloatingAnimationLoop(); }
+        }
+
+        function handlePasswordToggle() {
+            const passwordField = document.getElementById('password');
+            const toggleIcon = document.getElementById('eyeToggle');
+            if(passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.className = "fas fa-eye-slash toggle-premium-password";
+            } else {
+                passwordField.type = "password";
+                toggleIcon.className = "fas fa-eye toggle-premium-password";
+            }
+        }
+
+        function processLoginCheck() {
+            const userFieldValue = document.getElementById('username').value.trim().toLowerCase();
+            const passFieldValue = document.getElementById('password').value.trim();
+            if(userFieldValue === "monskutty" && passFieldValue === "1628") {
+                playBackgroundMusic();
+                navigateTo('scr-wish');
+            } else {
+                const err = document.getElementById('loginErrorMessage');
+                err.style.display = 'block';
+                err.parentElement.style.animation = 'shakeErr 0.4s ease';
+                setTimeout(() => err.parentElement.style.animation = '', 400);
+            }
+        }
+
+        function triggerLuxuryScreenBlastOverlay() {
+            const overlayContainer = document.getElementById('blastOverlay');
+            overlayContainer.style.display = 'block';
+            const designColors = ['#ff4d6d', '#ff758f', '#ffb3c6', '#ffffff'];
+            for (let i = 0; i < 25; i++) {
+                const particleNode = document.createElement('div');
+                particleNode.style.position = 'absolute'; particleNode.style.width = '5px'; particleNode.style.height = '5px'; particleNode.style.borderRadius = '50%';
+                particleNode.style.background = designColors[Math.floor(Math.random() * designColors.length)];
+                particleNode.style.left = '50%'; particleNode.style.top = '50%';
+                const projectionAngle = Math.random() * Math.PI * 2; const forceVelocity = Math.random() * 130 + 40;
+                overlayContainer.appendChild(particleNode);
+                particleNode.animate([
+                    { transform: 'translate(0, 0) scale(1.1)', opacity: 1 },
+                    { transform: `translate(${Math.cos(projectionAngle) * forceVelocity}px, ${Math.sin(projectionAngle) * forceVelocity}px) scale(0)`, opacity: 0 }
+                ], { duration: 900, easing: 'ease-out' });
+            }
+            setTimeout(() => { overlayContainer.innerHTML = ''; overlayContainer.style.display = 'none'; }, 900);
+        }
+
+        function generateRealisticBalloonsGrid() {
+            const targetedContainer = document.getElementById('balloonGridContainer');
+            const dynamicColorPlates = ['#ff4d6d', '#ff758f', '#ff85a1', '#ff99b6', '#ffb3c6', '#c9184a'];
+            targetedContainer.innerHTML = '';
+            dynamicMemoriesList.forEach((memoryData, nodeIdx) => {
+                const balloonWrapper = document.createElement('div');
+                balloonWrapper.className = 'luxury-balloon';
+                balloonWrapper.style.background = dynamicColorPlates[nodeIdx % dynamicColorPlates.length];
+                const structuralString = document.createElement('div');
+                structuralString.className = 'luxury-balloon-string';
+                balloonWrapper.appendChild(structuralString);
+                balloonWrapper.onclick = () => {
+                    if(!balloonWrapper.classList.contains('popped-out')) {
+                        balloonWrapper.classList.add('popped-out'); poppedBalloonsCounter++;
+                        setTimeout(() => {
+                            presentLuxuryPolaroidModal(memoryData.img, memoryData.cap);
+                            if(poppedBalloonsCounter === 6) { document.getElementById('btnNextSurpriseWrapper').style.display = 'inline-flex'; }
+                        }, 180);
+                    }
+                };
+                targetedContainer.appendChild(balloonWrapper);
+            });
+        }
+
+        function presentLuxuryPolaroidModal(imgUrl, captionText) {
+            const modalImg = document.getElementById('polaroidImageSrc');
+            modalImg.src = imgUrl;
+            document.getElementById('polaroidCaptionSrc').innerText = captionText;
+            document.getElementById('luxuryPolaroid').classList.add('show-up');
+        }
+        function dismissPolaroid() { document.getElementById('luxuryPolaroid').classList.remove('show-up'); }
+
+        function triggerSurpriseOpen(surpriseBoxId) {
+            document.getElementById('allSurprisesBoxesGroup').style.display = 'none';
+            document.getElementById(`content-surprise-${surpriseBoxId}`).style.display = 'flex';
+            if(surpriseBoxId === 2) {
+                activeFillBlankIndex = 0;
+                userQuizAnswers = [];
+                document.getElementById('quizInterfaceWrapper').style.display = 'block';
+                document.getElementById('quiz-summary-scoreboard').style.display = 'none';
+                document.getElementById('fillBlankAnswerInput').value = '';
+                evaluateFillBlankStep();
+            } else if (surpriseBoxId === 3) {
+                document.getElementById('backFromLetterBtn').style.opacity = '0'; document.getElementById('backFromLetterBtn').style.pointerEvents = 'none';
+                document.getElementById('skipTypingEngineBtn').style.display = 'block';
+                executeLetterTypewriterPipeline();
+            }
+        }
+
+        function finalizeSurpriseClose(surpriseBoxId) {
+            if(surpriseBoxId === 1) {
+                const mainVideo = document.getElementById('premiumMainVideo'); 
+                const bgm = document.getElementById('bgmAudio');
+                mainVideo.pause(); 
+                mainVideo.currentTime = 0;
+                // Restore background music volume immediately when closing video page
+                if (bgm && !bgm.paused) {
+                    bgm.volume = 0.4;
+                }
+                document.getElementById('videoWrapperCover').classList.remove('hidden-wrap');
+            }
+            document.getElementById(`content-surprise-${surpriseBoxId}`).style.display = 'none';
+            document.getElementById('allSurprisesBoxesGroup').style.display = 'flex';
+            const boxes = document.querySelectorAll('.realistic-gift-container');
+            if(boxes[surpriseBoxId - 1]) boxes[surpriseBoxId - 1].style.display = 'none';
+            const anyVisible = Array.from(boxes).some(box => box.style.display !== 'none');
+            if(!anyVisible) { setTimeout(() => { navigateTo('scr-photos'); }, 500); }
+        }
+
+        function revealHiddenVideo() {
+            document.getElementById('videoWrapperCover').classList.add('hidden-wrap');
+            document.getElementById('premiumMainVideo').play();
+        }
+
+        function evaluateFillBlankStep() {
+            const progressPercent = (activeFillBlankIndex / fillBlankQuestionsPool.length) * 100;
+            document.getElementById('quizProgressBarTracker').style.width = progressPercent + '%';
+            document.getElementById('quizQuestionText').innerText = fillBlankQuestionsPool[activeFillBlankIndex];
+            document.getElementById('fillBlankAnswerInput').value = '';
+            document.getElementById('fillBlankAnswerInput').focus();
+        }
+
+        function submitFillBlankAnswer() {
+            const userTypedInput = document.getElementById('fillBlankAnswerInput').value.trim();
+            if(userTypedInput === "") {
+                document.getElementById('fillBlankAnswerInput').style.borderColor = '#c9184a';
+                setTimeout(() => document.getElementById('fillBlankAnswerInput').style.borderColor = 'rgba(255, 77, 109, 0.3)', 600);
+                return;
+            }
+
+            userQuizAnswers.push({
+                question: fillBlankQuestionsPool[activeFillBlankIndex],
+                answer: userTypedInput
+            });
+
+            const interfaceWrapper = document.getElementById('quizInterfaceWrapper');
+            interfaceWrapper.classList.add('blurred');
+            const overlay = document.getElementById('quizCorrectOverlay');
+            
+            const complimentaryGifs = ["assets/happy-dudu.gif", "assets/happy.gif", "assets/dudububuhappy.gif", "assets/bubu.gif"];
+            const randomChosenGif = complimentaryGifs[Math.floor(Math.random() * complimentaryGifs.length)];
+            overlay.querySelector('.quiz-gif-anim').src = randomChosenGif;
+            overlay.querySelector('h3').innerText = "Wonderful Answer! ✨";
+            
+            overlay.style.display = 'flex';
+
+            setTimeout(() => {
+                interfaceWrapper.classList.remove('blurred');
+                overlay.style.display = 'none';
+                activeFillBlankIndex++;
+                if(activeFillBlankIndex < fillBlankQuestionsPool.length) {
+                    evaluateFillBlankStep();
+                } else {
+                    renderQuizSummaryCard();
+                }
+            }, 1400);
+        }
+
+        function renderQuizSummaryCard() {
+            document.getElementById('quizInterfaceWrapper').style.display = 'none';
+            const summaryContainer = document.getElementById('quizSummaryListContainer');
+            summaryContainer.innerHTML = "";
+
+            userQuizAnswers.forEach((item, idx) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.style.background = "rgba(255, 255, 255, 0.85)";
+                itemDiv.style.padding = "10px 14px";
+                itemDiv.style.borderRadius = "12px";
+                itemDiv.style.border = "1px solid rgba(255, 77, 109, 0.25)";
+                itemDiv.innerHTML = `
+                    <p style="font-size: 0.85rem; font-weight: 600; color: #4a0010; margin-bottom: 4px;">${item.question}</p>
+                    <p style="font-family: 'Dancing Script', cursive; font-size: 1.15rem; color: #c9184a; font-weight: 700;"><i class="fas fa-heart" style="font-size: 0.8rem; margin-right: 4px;"></i> ${item.answer}</p>
+                `;
+                summaryContainer.appendChild(itemDiv);
+            });
+
+            document.getElementById('quiz-summary-scoreboard').style.display = 'block';
+        }
+
+        function navigateToPointsPage() {
+            navigateTo('scr-points');
+        }
+
+        function proceedFromPointsToPhotos() {
+            navigateTo('scr-photos');
+        }
+
+        function executeLetterTypewriterPipeline() {
+            const textDestinationNode = document.getElementById('typewriterOutputCore'); textDestinationNode.innerHTML = "";
+            let characterIndexCounter = 0; typewriterActiveStatus = true; clearInterval(letterTypewriterIntervalTimer);
+            letterTypewriterIntervalTimer = setInterval(() => {
+                if(characterIndexCounter < premiumLoveLetterString.length && typewriterActiveStatus) {
+                    textDestinationNode.innerHTML += premiumLoveLetterString.charAt(characterIndexCounter);
+                    characterIndexCounter++; textDestinationNode.scrollTop = textDestinationNode.scrollHeight;
+                } else { clearInterval(letterTypewriterIntervalTimer); terminateTypewriterWorkflow(); }
+            }, 30);
+        }
+        function bypassTypewriterEngine() { typewriterActiveStatus = false; clearInterval(letterTypewriterIntervalTimer); document.getElementById('typewriterOutputCore').innerHTML = premiumLoveLetterString; terminateTypewriterWorkflow(); }
+        function terminateTypewriterWorkflow() { document.getElementById('skipTypingEngineBtn').style.display = 'none'; const btn = document.getElementById('backFromLetterBtn'); btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+
+        function initFullPageFloatingGrid() {
+            const arena = document.getElementById('floatingCanvasArea');
+            arena.innerHTML = '';
+            floatingCardsEngineList = [];
+            currentlyZoomedCardReference = null;
+
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            const movementSpeedFactor = viewportWidth < 600 ? 1.5 : 1.2;
+
+            floatingPhotosData.forEach((data, index) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'floating-polaroid-card';
+                cardEl.id = `float-card-${index}`;
+
+                cardEl.innerHTML = `
+                    <div class="float-img-holder">
+                        <img src="${data.img}">
+                    </div>
+                    <p>${data.cap}</p>
+                `;
+
+                const xRandomPos = Math.random() * (viewportWidth - 130);
+                const yRandomPos = 100 + Math.random() * (viewportHeight - 320);
+                
+                let xVel = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 0.6 + 0.4) * movementSpeedFactor;
+                let yVel = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 0.6 + 0.4) * movementSpeedFactor;
+                const randomRot = Math.random() * 20 - 10;
+
+                cardEl.style.left = `${xRandomPos}px`;
+                cardEl.style.top = `${yRandomPos}px`;
+                cardEl.style.transform = `rotate(${randomRot}deg)`;
+
+                arena.appendChild(cardEl);
+
+                const cardTrackObject = {
+                    element: cardEl,
+                    x: xRandomPos,
+                    y: yRandomPos,
+                    dx: xVel,
+                    dy: yVel,
+                    rot: randomRot,
+                    isZoomed: false
+                };
+
+                cardEl.onclick = (e) => {
+                    e.stopPropagation();
+                    toggleCardFocusZoom(cardTrackObject);
+                };
+
+                floatingCardsEngineList.push(cardTrackObject);
+            });
+
+            stopFloatingAnimationLoop();
+            executeFloatingAnimationEngineLoop();
+        }
+
+        function toggleCardFocusZoom(cardObj) {
+            if(currentlyZoomedCardReference && currentlyZoomedCardReference !== cardObj) {
+                removeCardZoomState(currentlyZoomedCardReference);
+            }
+
+            if(!cardObj.isZoomed) {
+                cardObj.isZoomed = true;
+                currentlyZoomedCardReference = cardObj;
+                cardObj.element.classList.add('focused-center-view');
+                cardObj.element.style.transform = ''; 
+            } else {
+                removeCardZoomState(cardObj);
+            }
+        }
+
+        function removeCardZoomState(cardObj) {
+            cardObj.isZoomed = false;
+            if(currentlyZoomedCardReference === cardObj) currentlyZoomedCardReference = null;
+            cardObj.element.classList.remove('focused-center-view');
+            cardObj.element.style.transform = `rotate(${cardObj.rot}deg)`;
+        }
+
+        function executeFloatingAnimationEngineLoop() {
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            const cardWidthOffset = viewportWidth < 600 ? 95 : 120;
+            const cardHeightOffset = viewportWidth < 600 ? 120 : 150;
+
+            floatingCardsEngineList.forEach(card => {
+                if (!card.isZoomed) {
+                    card.x += card.dx;
+                    card.y += card.dy;
+
+                    if (card.x <= 0 || card.x >= (viewportWidth - cardWidthOffset)) card.dx *= -1;
+                    if (card.y <= 70 || card.y >= (viewportHeight - cardHeightOffset - 80)) card.dy *= -1;
+
+                    card.element.style.left = `${card.x}px`;
+                    card.element.style.top = `${card.y}px`;
+                    card.element.style.transform = `rotate(${card.rot}deg)`;
+                }
+            });
+
+            globalAnimationRequestFrameHolder = requestAnimationFrame(executeFloatingAnimationEngineLoop);
+        }
+
+        function stopFloatingAnimationLoop() {
+            if(globalAnimationRequestFrameHolder) {
+                cancelAnimationFrame(globalAnimationRequestFrameHolder);
+            }
+        }
+
+        function triggerLoveLoopReset() {
+            poppedBalloonsCounter = 0; activeFillBlankIndex = 0; typewriterActiveStatus = false;
+            userQuizAnswers = [];
+            stopFloatingAnimationLoop();
+            clearInterval(letterTypewriterIntervalTimer);
+            document.getElementById('username').value = ''; document.getElementById('password').value = '';
+            document.getElementById('loginErrorMessage').style.display = 'none';
+            document.querySelectorAll('.realistic-gift-container').forEach(box => box.style.display = 'block');
+            document.getElementById('allSurprisesBoxesGroup').style.display = 'flex';
+            document.getElementById('content-surprise-1').style.display = 'none';
+            document.getElementById('content-surprise-2').style.display = 'none';
+            document.getElementById('content-surprise-3').style.display = 'none';
+            document.getElementById('videoWrapperCover').classList.remove('hidden-wrap');
+            const mainVideo = document.getElementById('premiumMainVideo'); 
+            const bgm = document.getElementById('bgmAudio');
+            mainVideo.pause(); 
+            mainVideo.currentTime = 0;
+            if(bgm && !bgm.paused) { bgm.volume = 0.4; }
+            document.getElementById('btnNextSurpriseWrapper').style.display = 'none';
+            document.getElementById('balloonGridContainer').innerHTML = '';
+            document.getElementById('floatingCanvasArea').innerHTML = '';
+            navigateTo('scr-login');
+        }
+    </script>
+</body>
+</html>
